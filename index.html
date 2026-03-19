@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Shuttle Discovery — Cockpit Mockup</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header HUD -->
+    <div id="hud">
+      <div class="hud-left">
+        <span class="shuttle-id">OV-103 DISCOVERY</span>
+        <span class="mission-timer" id="missionTimer">MET: 00:00:00:00</span>
+      </div>
+      <div class="hud-center">
+        <div class="status-bar">
+          <span class="status-item" id="statusAPU">APU: <b>OFF</b></span>
+          <span class="status-item" id="statusHYD">HYD: <b>OFF</b></span>
+          <span class="status-item" id="statusFUEL">FUEL CELL: <b>OFF</b></span>
+          <span class="status-item" id="statusECS">ECS: <b>OFF</b></span>
+          <span class="status-item" id="statusOMS">OMS: <b>OFF</b></span>
+          <span class="status-item" id="statusCOMM">COMM: <b>OFF</b></span>
+        </div>
+      </div>
+      <div class="hud-right">
+        <div class="master-alarm-btn" id="masterAlarm" onclick="silenceAlarm()">
+          <span>MASTER</span><span>ALARM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Cockpit -->
+    <div id="cockpit">
+
+      <!-- Overhead Panel (O1/O2 — forward overhead) -->
+      <section class="panel overhead-panel" id="panelOverhead">
+        <div class="panel-label">OVERHEAD — O1/O2</div>
+
+        <!-- Row: APU/HYD -->
+        <div class="panel-section">
+          <div class="section-title">APU / HYDRAULIC</div>
+          <div class="controls-row">
+            <!-- APU 1 -->
+            <div class="control-group">
+              <div class="group-label">APU 1</div>
+              <div class="indicator-light" id="indAPU1">OFF</div>
+              <div class="toggle-switch" id="swAPU1" data-state="off"
+                   onclick="toggleAPU(1)" title="APU 1 PWR">
+                <div class="switch-handle"></div>
+              </div>
+              <div class="switch-label">PWR</div>
+              <div class="rocker-switch" id="rkAPU1Speed" data-state="low">
+                <div class="rocker-top" onclick="rockerClick('rkAPU1Speed','HI','APU 1 SPEED HI')">HI</div>
+                <div class="rocker-bot" onclick="rockerClick('rkAPU1Speed','LOW','APU 1 SPEED LOW')">LOW</div>
+              </div>
+              <div class="switch-label">SPEED</div>
+            </div>
+            <!-- APU 2 -->
+            <div class="control-group">
+              <div class="group-label">APU 2</div>
+              <div class="indicator-light" id="indAPU2">OFF</div>
+              <div class="toggle-switch" id="swAPU2" data-state="off"
+                   onclick="toggleAPU(2)" title="APU 2 PWR">
+                <div class="switch-handle"></div>
+              </div>
+              <div class="switch-label">PWR</div>
+              <div class="rocker-switch" id="rkAPU2Speed" data-state="low">
+                <div class="rocker-top" onclick="rockerClick('rkAPU2Speed','HI','APU 2 SPEED HI')">HI</div>
+                <div class="rocker-bot" onclick="rockerClick('rkAPU2Speed','LOW','APU 2 SPEED LOW')">LOW</div>
+              </div>
+              <div class="switch-label">SPEED</div>
+            </div>
+            <!-- APU 3 -->
+            <div class="control-group">
+              <div class="group-label">APU 3</div>
+              <div class="indicator-light" id="indAPU3">OFF</div>
+              <div class="toggle-switch" id="swAPU3" data-state="off"
+                   onclick="toggleAPU(3)" title="APU 3 PWR">
+                <div class="switch-handle"></div>
+              </div>
+              <div class="switch-label">PWR</div>
+              <div class="rocker-switch" id="rkAPU3Speed" data-state="low">
+                <div class="rocker-top" onclick="rockerClick('rkAPU3Speed','HI','APU 3 SPEED HI')">HI</div>
+                <div class="rocker-bot" onclick="rockerClick('rkAPU3Speed','LOW','APU 3 SPEED LOW')">LOW</div>
+              </div>
+              <div class="switch-label">SPEED</div>
+            </div>
+
+            <div class="separator-v"></div>
+
+            <!-- HYD Pumps -->
+            <div class="control-group">
+              <div class="group-label">HYD SYS 1</div>
+              <div class="indicator-light" id="indHYD1">OFF</div>
+              <div class="toggle-switch" id="swHYD1" data-state="off"
+                   onclick="toggleHydraulic(1)" title="HYD 1 MAIN PUMP">
+                <div class="switch-handle"></div>
+              </div>
+              <div class="switch-label">MAIN PUMP</div>
+              <div class="push-button small" onclick="pushClick('HYD 1 CIRC PUMP TEST')">CIRC</div>
+            </div>
+            <div class="control-group">
+              <div class="group-label">HYD SYS 2</div>
+              <div class="indicator-light" id="indHYD2">OFF</div>
+              <div class="toggle-switch" id="swHYD2" data-state="off"
+                   onclick="toggleHydraulic(2)" title="HYD 2 MAIN PUMP">
+                <div class="switch-handle"></div>
+              </div>
+              <div class="switch-label">MAIN PUMP</div>
+              <div class="push-button small" onclick="pushClick('HYD 2 CIRC PUMP TEST')">CIRC</div>
+            </div>
+            <div class="control-group">
+              <div class="group-label">HYD SYS 3</div>
+              <div class="indicator-light" id="indHYD3">OFF</div>
+              <div class="toggle-switch" id="swHYD3" data-state="off"
+                   onclick="toggleHydraulic(3)" title="HYD 3 MAIN PUMP">
+                <div class="switch-handle"></div>
+              </div>
+              <div class="switch-label">MAIN PUMP</div>
+              <div class="push-button small" onclick="pushClick('HYD 3 CIRC PUMP TEST')">CIRC</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row: Fuel Cells / EPS -->
+        <div class="panel-section">
+          <div class="section-title">FUEL CELLS — EPS</div>
+          <div class="controls-row">
+            <div class="control-group">
+              <div class="group-label">FC 1</div>
+              <div class="indicator-light" id="indFC1">OFF</div>
+              <div class="toggle-switch" id="swFC1" data-state="off"
+                   onclick="toggleFuelCell(1)">
+                <div class="switch-handle"></div>
+              </div>
+              <div class="switch-label">REACTNTS</div>
+              <div class="rocker-switch" id="rkFC1Pur" data-state="norm">
+                <div class="rocker-top" onclick="rockerClick('rkFC1Pur','PURGE','FC 1 PURGE')">PURGE</div>
+                <div class="rocker-bot" onclick="rockerClick('rkFC1Pur','NORM','FC 1 NORM')">NORM</div>
+              </div>
+              <div class="switch-label">PURGE</div>
+            </div>
+            <div class="control-group">
+              <div class="group-label">FC 2</div>
+              <div class="indicator-light" id="indFC2">OFF</div>
+              <div class="toggle-switch" id="swFC2" data-state="off"
+                   onclick="toggleFuelCell(2)">
+                <div class="switch-handle"></div>
+              </div>
+              <div class="switch-label">REACTNTS</div>
+              <div class="rocker-switch" id="rkFC2Pur" data-state="norm">
+                <div class="rocker-top" onclick="rockerClick('rkFC2Pur','PURGE','FC 2 PURGE')">PURGE</div>
+                <div class="rocker-bot" onclick="rockerClick('rkFC2Pur','NORM','FC 2 NORM')">NORM</div>
+              </div>
+              <div class="switch-label">PURGE</div>
+            </div>
+            <div class="control-group">
+              <div class="group-label">FC 3</div>
+              <div class="indicator-light" id="indFC3">OFF</div>
+              <div class="toggle-switch" id="swFC3" data-state="off"
+                   onclick="toggleFuelCell(3)">
+                <div class="switch-handle"></div>
+              </div>
+              <div class="switch-label">REACTNTS</div>
+              <div class="rocker-switch" id="rkFC3Pur" data-state="norm">
+                <div class="rocker-top" onclick="rockerClick('rkFC3Pur','PURGE','FC 3 PURGE')">PURGE</div>
+                <div class="rocker-bot" onclick="rockerClick('rkFC3Pur','NORM','FC 3 NORM')">NORM</div>
+              </div>
+              <div class="switch-label">PURGE</div>
+            </div>
+
+            <div class="separator-v"></div>
+
+            <!-- Bus ties -->
+            <div class="control-group">
+              <div class="group-label">AC BUS 1</div>
+              <div class="rocker-switch wide" id="rkACBUS1" data-state="off">
+                <div class="rocker-top" onclick="rockerClick('rkACBUS1','ON','AC BUS 1 ON')">ON</div>
+                <div class="rocker-bot" onclick="rockerClick('rkACBUS1','OFF','AC BUS 1 OFF')">OFF</div>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="group-label">AC BUS 2</div>
+              <div class="rocker-switch wide" id="rkACBUS2" data-state="off">
+                <div class="rocker-top" onclick="rockerClick('rkACBUS2','ON','AC BUS 2 ON')">ON</div>
+                <div class="rocker-bot" onclick="rockerClick('rkACBUS2','OFF','AC BUS 2 OFF')">OFF</div>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="group-label">AC BUS 3</div>
+              <div class="rocker-switch wide" id="rkACBUS3" data-state="off">
+                <div class="rocker-top" onclick="rockerClick('rkACBUS3','ON','AC BUS 3 ON')">ON</div>
+                <div class="rocker-bot" onclick="rockerClick('rkACBUS3','OFF','AC BUS 3 OFF')">OFF</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row: ECS / Life Support -->
+        <div class="panel-section">
+          <div class="section-title">ECS — ENVIRONMENTAL CONTROL</div>
+          <div class="controls-row">
+            <div class="control-group">
+              <div class="group-label">CABIN FAN</div>
+              <div class="indicator-light" id="indECSFan">OFF</div>
+              <div class="toggle-switch" id="swECSFan" data-state="off"
+                   onclick="toggleECS()">
+                <div class="switch-handle"></div>
+              </div>
+              <div class="switch-label">FAN PWR</div>
+            </div>
+            <div class="control-group">
+              <div class="group-label">O2 FLOW</div>
+              <div class="rocker-switch" id="rkO2Flow" data-state="norm">
+                <div class="rocker-top" onclick="rockerClick('rkO2Flow','HI','O2 FLOW HI')">HI</div>
+                <div class="rocker-bot" onclick="rockerClick('rkO2Flow','NORM','O2 FLOW NORM')">NORM</div>
+              </div>
+              <div class="switch-label">O₂ FLOW</div>
+            </div>
+            <div class="control-group">
+              <div class="group-label">SUIT ISOL</div>
+              <div class="rocker-switch" id="rkSuitIsol" data-state="open">
+                <div class="rocker-top" onclick="rockerClick('rkSuitIsol','ISOL','SUIT ISOLATED')">ISOL</div>
+                <div class="rocker-bot" onclick="rockerClick('rkSuitIsol','OPEN','SUIT OPEN')">OPEN</div>
+              </div>
+              <div class="switch-label">SUIT</div>
+            </div>
+            <div class="control-group">
+              <div class="group-label">CO₂ SCRUB</div>
+              <div class="toggle-switch" id="swCO2" data-state="off"
+                   onclick="genericToggle('swCO2','indCO2','CO₂ SCRUBBER','ecs')">
+                <div class="switch-handle"></div>
+              </div>
+              <div class="indicator-light" id="indCO2">OFF</div>
+              <div class="switch-label">SCRUBBER</div>
+            </div>
+            <div class="control-group">
+              <div class="group-label">FREON LOOP</div>
+              <div class="rocker-switch" id="rkFreon" data-state="off">
+                <div class="rocker-top" onclick="rockerClick('rkFreon','ON','FREON LOOP ON')">ON</div>
+                <div class="rocker-bot" onclick="rockerClick('rkFreon','OFF','FREON LOOP OFF')">OFF</div>
+              </div>
+              <div class="switch-label">LOOP</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Panel Row: F2/F3/F4 (center) -->
+      <div class="main-panels-row">
+
+        <!-- Left Main Panel - Commander side (F4) -->
+        <section class="panel side-panel left-panel" id="panelF4">
+          <div class="panel-label">F4 — CDR</div>
+
+          <!-- DPS / GPC -->
+          <div class="panel-section">
+            <div class="section-title">DATA PROC — GPC</div>
+            <div class="controls-row wrap">
+              <div class="control-group small">
+                <div class="group-label">GPC 1</div>
+                <div class="push-button med" id="pbGPC1" onclick="gpcPower(1)">GPC 1</div>
+                <div class="indicator-light small" id="indGPC1">OFF</div>
+              </div>
+              <div class="control-group small">
+                <div class="group-label">GPC 2</div>
+                <div class="push-button med" id="pbGPC2" onclick="gpcPower(2)">GPC 2</div>
+                <div class="indicator-light small" id="indGPC2">OFF</div>
+              </div>
+              <div class="control-group small">
+                <div class="group-label">GPC 3</div>
+                <div class="push-button med" id="pbGPC3" onclick="gpcPower(3)">GPC 3</div>
+                <div class="indicator-light small" id="indGPC3">OFF</div>
+              </div>
+              <div class="control-group small">
+                <div class="group-label">GPC 4</div>
+                <div class="push-button med" id="pbGPC4" onclick="gpcPower(4)">GPC 4</div>
+                <div class="indicator-light small" id="indGPC4">OFF</div>
+              </div>
+              <div class="control-group small">
+                <div class="group-label">GPC 5</div>
+                <div class="push-button med" id="pbGPC5" onclick="gpcPower(5)">GPC 5</div>
+                <div class="indicator-light small" id="indGPC5">OFF</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RCS Manifolds -->
+          <div class="panel-section">
+            <div class="section-title">FWD RCS MANIFOLDS</div>
+            <div class="controls-row wrap">
+              <div class="control-group small">
+                <div class="group-label">MAN 1</div>
+                <div class="toggle-switch" id="swRCS1" data-state="off"
+                     onclick="genericToggle('swRCS1','indRCS1','FWD RCS MANIFOLD 1','rcs')">
+                  <div class="switch-handle"></div>
+                </div>
+                <div class="indicator-light small" id="indRCS1">OFF</div>
+              </div>
+              <div class="control-group small">
+                <div class="group-label">MAN 2</div>
+                <div class="toggle-switch" id="swRCS2" data-state="off"
+                     onclick="genericToggle('swRCS2','indRCS2','FWD RCS MANIFOLD 2','rcs')">
+                  <div class="switch-handle"></div>
+                </div>
+                <div class="indicator-light small" id="indRCS2">OFF</div>
+              </div>
+              <div class="control-group small">
+                <div class="group-label">MAN 3</div>
+                <div class="toggle-switch" id="swRCS3" data-state="off"
+                     onclick="genericToggle('swRCS3','indRCS3','FWD RCS MANIFOLD 3','rcs')">
+                  <div class="switch-handle"></div>
+                </div>
+                <div class="indicator-light small" id="indRCS3">OFF</div>
+              </div>
+              <div class="control-group small">
+                <div class="group-label">MAN 4</div>
+                <div class="toggle-switch" id="swRCS4" data-state="off"
+                     onclick="genericToggle('swRCS4','indRCS4','FWD RCS MANIFOLD 4','rcs')">
+                  <div class="switch-handle"></div>
+                </div>
+                <div class="indicator-light small" id="indRCS4">OFF</div>
+              </div>
+              <div class="control-group small">
+                <div class="group-label">MAN 5</div>
+                <div class="toggle-switch" id="swRCS5" data-state="off"
+                     onclick="genericToggle('swRCS5','indRCS5','FWD RCS MANIFOLD 5','rcs')">
+                  <div class="switch-handle"></div>
+                </div>
+                <div class="indicator-light small" id="indRCS5">OFF</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Speed brake / body flap -->
+          <div class="panel-section">
+            <div class="section-title">AERO SURFACES</div>
+            <div class="controls-row">
+              <div class="control-group">
+                <div class="group-label">SPD BRAKE</div>
+                <div class="rocker-switch" id="rkSpdBrake" data-state="off">
+                  <div class="rocker-top" onclick="rockerClick('rkSpdBrake','AUTO','SPD BRAKE AUTO')">AUTO</div>
+                  <div class="rocker-bot" onclick="rockerClick('rkSpdBrake','MAN','SPD BRAKE MAN')">MAN</div>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">BODY FLAP</div>
+                <div class="rocker-switch" id="rkBodyFlap" data-state="auto">
+                  <div class="rocker-top" onclick="rockerClick('rkBodyFlap','AUTO','BODY FLAP AUTO')">AUTO</div>
+                  <div class="rocker-bot" onclick="rockerClick('rkBodyFlap','MAN','BODY FLAP MAN')">MAN</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Center Main Panel (F3 — instruments) -->
+        <section class="panel center-panel" id="panelF3">
+          <div class="panel-label">F2/F3 — FLIGHT INSTRUMENTS</div>
+
+          <!-- CRT Displays (MEDS) -->
+          <div class="display-cluster">
+            <div class="crt-display" id="crt1">
+              <div class="crt-content">
+                <div class="crt-header">CRT 1 — GNC ASCENT</div>
+                <div class="crt-data" id="crt1Data">
+                  <div class="data-line"><span>HDG</span><span id="hdg">270.0°</span></div>
+                  <div class="data-line"><span>PITCH</span><span id="pitch">0.0°</span></div>
+                  <div class="data-line"><span>ROLL</span><span id="roll">0.0°</span></div>
+                  <div class="data-line"><span>ALT</span><span id="alt">0 FT</span></div>
+                  <div class="data-line"><span>V̇</span><span id="vel">0 FPS</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="crt-display" id="crt2">
+              <div class="crt-content">
+                <div class="crt-header">CRT 2 — SYS SUMMARY</div>
+                <div class="crt-data" id="crt2Data">
+                  <div class="data-line"><span>FC1 V</span><span id="fc1v">---</span></div>
+                  <div class="data-line"><span>FC2 V</span><span id="fc2v">---</span></div>
+                  <div class="data-line"><span>FC3 V</span><span id="fc3v">---</span></div>
+                  <div class="data-line"><span>HYD 1</span><span id="hyd1p">--- PSI</span></div>
+                  <div class="data-line"><span>HYD 2</span><span id="hyd2p">--- PSI</span></div>
+                  <div class="data-line"><span>HYD 3</span><span id="hyd3p">--- PSI</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FDAI ball indicator mockup -->
+          <div class="fdai-row">
+            <div class="fdai-wrapper">
+              <div class="fdai-label">CDR FDAI</div>
+              <div class="fdai" id="fdaiLeft">
+                <div class="fdai-sphere" id="fdaiSphereL">
+                  <div class="fdai-horizon"></div>
+                  <div class="fdai-graticule"></div>
+                </div>
+                <div class="fdai-frame"></div>
+                <div class="fdai-pointer pitch-ptr" id="pitchPtrL"></div>
+                <div class="fdai-pointer roll-ptr" id="rollPtrL"></div>
+              </div>
+            </div>
+            <div class="attitude-digits">
+              <div class="att-item">
+                <div class="att-label">PITCH</div>
+                <div class="att-value" id="dispPitch">+000.0</div>
+              </div>
+              <div class="att-item">
+                <div class="att-label">ROLL</div>
+                <div class="att-value" id="dispRoll">+000.0</div>
+              </div>
+              <div class="att-item">
+                <div class="att-label">YAW</div>
+                <div class="att-value" id="dispYaw">+000.0</div>
+              </div>
+            </div>
+            <div class="fdai-wrapper">
+              <div class="fdai-label">PLT FDAI</div>
+              <div class="fdai" id="fdaiRight">
+                <div class="fdai-sphere" id="fdaiSphereR">
+                  <div class="fdai-horizon"></div>
+                  <div class="fdai-graticule"></div>
+                </div>
+                <div class="fdai-frame"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Propulsion / Main Engines -->
+          <div class="panel-section">
+            <div class="section-title">MAIN PROPULSION — MPS</div>
+            <div class="controls-row">
+              <div class="control-group">
+                <div class="group-label">ME 1 ISOL</div>
+                <div class="rocker-switch" id="rkME1Isol" data-state="open">
+                  <div class="rocker-top" onclick="rockerClick('rkME1Isol','ISOL','ME 1 ISOLATED')">ISOL</div>
+                  <div class="rocker-bot" onclick="rockerClick('rkME1Isol','OPEN','ME 1 OPEN')">OPEN</div>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">ME 2 ISOL</div>
+                <div class="rocker-switch" id="rkME2Isol" data-state="open">
+                  <div class="rocker-top" onclick="rockerClick('rkME2Isol','ISOL','ME 2 ISOLATED')">ISOL</div>
+                  <div class="rocker-bot" onclick="rockerClick('rkME2Isol','OPEN','ME 2 OPEN')">OPEN</div>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">ME 3 ISOL</div>
+                <div class="rocker-switch" id="rkME3Isol" data-state="open">
+                  <div class="rocker-top" onclick="rockerClick('rkME3Isol','ISOL','ME 3 ISOLATED')">ISOL</div>
+                  <div class="rocker-bot" onclick="rockerClick('rkME3Isol','OPEN','ME 3 OPEN')">OPEN</div>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">MPS PURGE</div>
+                <div class="push-button med caution" onclick="pushClick('MPS HELIUM PURGE')">HE PURGE</div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">LO₂ VLV</div>
+                <div class="rocker-switch" id="rkLOXValve" data-state="cls">
+                  <div class="rocker-top" onclick="rockerClick('rkLOXValve','OPEN','LOX FILL VALVE OPEN')">OPEN</div>
+                  <div class="rocker-bot" onclick="rockerClick('rkLOXValve','CLS','LOX FILL VALVE CLOSED')">CLS</div>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">LH₂ VLV</div>
+                <div class="rocker-switch" id="rkLH2Valve" data-state="cls">
+                  <div class="rocker-top" onclick="rockerClick('rkLH2Valve','OPEN','LH2 FILL VALVE OPEN')">OPEN</div>
+                  <div class="rocker-bot" onclick="rockerClick('rkLH2Valve','CLS','LH2 FILL VALVE CLOSED')">CLS</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right Main Panel - Pilot side (F2) -->
+        <section class="panel side-panel right-panel" id="panelF2">
+          <div class="panel-label">F2 — PLT</div>
+
+          <!-- OMS -->
+          <div class="panel-section">
+            <div class="section-title">OMS — ORBITAL MANEUVERING</div>
+            <div class="controls-row wrap">
+              <div class="control-group">
+                <div class="group-label">L OMS ARM</div>
+                <div class="indicator-light" id="indOMSL">OFF</div>
+                <div class="push-button med armed" id="pbOMSL" onclick="toggleOMS('L')">ARM</div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">R OMS ARM</div>
+                <div class="indicator-light" id="indOMSR">OFF</div>
+                <div class="push-button med armed" id="pbOMSR" onclick="toggleOMS('R')">ARM</div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">OMS FIRE</div>
+                <div class="push-button large fire" id="pbOMSFire" onclick="omsFire()">FIRE</div>
+              </div>
+            </div>
+            <div class="controls-row wrap">
+              <div class="control-group small">
+                <div class="group-label">L ENG</div>
+                <div class="toggle-switch" id="swOMSLEng" data-state="off"
+                     onclick="genericToggle('swOMSLEng','indOMSLEng','OMS L ENGINE','oms')">
+                  <div class="switch-handle"></div>
+                </div>
+                <div class="indicator-light small" id="indOMSLEng">OFF</div>
+              </div>
+              <div class="control-group small">
+                <div class="group-label">R ENG</div>
+                <div class="toggle-switch" id="swOMSREng" data-state="off"
+                     onclick="genericToggle('swOMSREng','indOMSREng','OMS R ENGINE','oms')">
+                  <div class="switch-handle"></div>
+                </div>
+                <div class="indicator-light small" id="indOMSREng">OFF</div>
+              </div>
+              <div class="control-group small">
+                <div class="group-label">OMS KIT</div>
+                <div class="toggle-switch" id="swOMSKit" data-state="off"
+                     onclick="genericToggle('swOMSKit','indOMSKit','OMS KIT','oms')">
+                  <div class="switch-handle"></div>
+                </div>
+                <div class="indicator-light small" id="indOMSKit">OFF</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COMM -->
+          <div class="panel-section">
+            <div class="section-title">COMM — S-BAND / KU-BAND</div>
+            <div class="controls-row wrap">
+              <div class="control-group">
+                <div class="group-label">S-BAND 1</div>
+                <div class="indicator-light" id="indSBand1">OFF</div>
+                <div class="toggle-switch" id="swSBand1" data-state="off"
+                     onclick="toggleComm('swSBand1','indSBand1','S-BAND XMTR 1')">
+                  <div class="switch-handle"></div>
+                </div>
+                <div class="switch-label">XMTR</div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">S-BAND 2</div>
+                <div class="indicator-light" id="indSBand2">OFF</div>
+                <div class="toggle-switch" id="swSBand2" data-state="off"
+                     onclick="toggleComm('swSBand2','indSBand2','S-BAND XMTR 2')">
+                  <div class="switch-handle"></div>
+                </div>
+                <div class="switch-label">XMTR</div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">KU-BAND</div>
+                <div class="indicator-light" id="indKuBand">OFF</div>
+                <div class="toggle-switch" id="swKuBand" data-state="off"
+                     onclick="toggleComm('swKuBand','indKuBand','KU-BAND')">
+                  <div class="switch-handle"></div>
+                </div>
+                <div class="switch-label">PWR</div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">TDRS</div>
+                <div class="rocker-switch" id="rkTDRS" data-state="off">
+                  <div class="rocker-top" onclick="rockerClick('rkTDRS','FWD','TDRS FWD')">FWD</div>
+                  <div class="rocker-bot" onclick="rockerClick('rkTDRS','AFT','TDRS AFT')">AFT</div>
+                </div>
+                <div class="switch-label">TDRS SEL</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payload Bay -->
+          <div class="panel-section">
+            <div class="section-title">PAYLOAD BAY</div>
+            <div class="controls-row wrap">
+              <div class="control-group">
+                <div class="group-label">BAY DOORS</div>
+                <div class="rocker-switch" id="rkPayBayDoors" data-state="cls">
+                  <div class="rocker-top" onclick="rockerClick('rkPayBayDoors','OPEN','PAYLOAD BAY DOORS OPEN')">OPEN</div>
+                  <div class="rocker-bot" onclick="rockerClick('rkPayBayDoors','CLS','PAYLOAD BAY DOORS CLOSED')">CLS</div>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">RMS PWR</div>
+                <div class="toggle-switch" id="swRMS" data-state="off"
+                     onclick="genericToggle('swRMS','indRMS','RMS ARM','rcs')">
+                  <div class="switch-handle"></div>
+                </div>
+                <div class="indicator-light small" id="indRMS">OFF</div>
+                <div class="switch-label">RMS</div>
+              </div>
+              <div class="control-group">
+                <div class="group-label">LIGHTS</div>
+                <div class="rocker-switch" id="rkPayBayLights" data-state="off">
+                  <div class="rocker-top" onclick="rockerClick('rkPayBayLights','ON','PAYLOAD BAY LIGHTS ON')">ON</div>
+                  <div class="rocker-bot" onclick="rockerClick('rkPayBayLights','OFF','PAYLOAD BAY LIGHTS OFF')">OFF</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Center Console (C3) -->
+      <section class="panel center-console" id="panelC3">
+        <div class="panel-label">C3 — CENTER CONSOLE</div>
+        <div class="controls-row">
+          <!-- RHC / THC indicators -->
+          <div class="control-group">
+            <div class="group-label">RHC CDR</div>
+            <div class="rocker-switch" id="rkRHC" data-state="norm">
+              <div class="rocker-top" onclick="rockerClick('rkRHC','PULSE','RHC PULSE')">PULSE</div>
+              <div class="rocker-bot" onclick="rockerClick('rkRHC','NORM','RHC NORM')">NORM</div>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="group-label">TRIM</div>
+            <div class="rocker-switch" id="rkTrim" data-state="off">
+              <div class="rocker-top" onclick="rockerClick('rkTrim','AUTO','AUTO TRIM')">AUTO</div>
+              <div class="rocker-bot" onclick="rockerClick('rkTrim','MAN','MAN TRIM')">MAN</div>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="group-label">SRB SEP</div>
+            <div class="push-button large caution" id="pbSRBSep" onclick="srbSeparate()">SRB SEP</div>
+          </div>
+          <div class="control-group">
+            <div class="group-label">ET SEP</div>
+            <div class="push-button large caution" id="pbETSep" onclick="etSeparate()">ET SEP</div>
+          </div>
+          <div class="control-group">
+            <div class="group-label">ABORT</div>
+            <div class="push-button large abort" id="pbAbort" onclick="abortMode()">ABORT</div>
+          </div>
+          <div class="control-group">
+            <div class="group-label">GPC MODE</div>
+            <div class="rocker-switch" id="rkGPCMode" data-state="pri">
+              <div class="rocker-top" onclick="rockerClick('rkGPCMode','BFS','GPC BFS')">BFS</div>
+              <div class="rocker-bot" onclick="rockerClick('rkGPCMode','PRI','GPC PRI')">PRI</div>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="group-label">LANDING</div>
+            <div class="rocker-switch" id="rkLandGear" data-state="up">
+              <div class="rocker-top" onclick="rockerClick('rkLandGear','DOWN','LANDING GEAR DOWN')">DOWN</div>
+              <div class="rocker-bot" onclick="rockerClick('rkLandGear','UP','LANDING GEAR UP')">UP</div>
+            </div>
+            <div class="switch-label">GEAR</div>
+          </div>
+          <div class="control-group">
+            <div class="group-label">CHUTE</div>
+            <div class="push-button med" onclick="pushClick('DRAG CHUTE DEPLOY')">DEPLOY</div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /cockpit -->
+
+    <!-- Event Log -->
+    <div id="eventLog">
+      <div class="log-header">FLIGHT CREW CAUTION / STATUS</div>
+      <div id="logEntries">
+        <div class="log-entry info">SYSTEM READY — OV-103 DISCOVERY</div>
+        <div class="log-entry info">ALL SYSTEMS STANDBY</div>
+      </div>
+    </div>
+  </div><!-- /app -->
+
+  <script src="audio.js"></script>
+  <script src="cockpit.js"></script>
+</body>
+</html>
