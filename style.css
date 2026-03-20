@@ -595,6 +595,9 @@ html, body {
 ::-webkit-scrollbar-thumb { background: #2a3840; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #3a4850; }
 
+/* ── SEQUENCE STATUS ─────────────────────────────────────────── */
+#seqStatus { cursor: default; }
+
 /* ── ANIMATIONS ──────────────────────────────────────────── */
 @keyframes powerUp {
   0%   { opacity: 0; filter: brightness(3); }
